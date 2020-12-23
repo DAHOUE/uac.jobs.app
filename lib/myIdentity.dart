@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:uac_mcf_project/HomeScreen.dart';
 import 'package:uac_mcf_project/connexion.dart';
 import 'package:uac_mcf_project/constante/TextWithStyle.dart';
+import 'package:uac_mcf_project/homeConnexion.dart';
 import 'package:uac_mcf_project/inscription.dart';
 import 'package:uac_mcf_project/myCompany.dart';
 
@@ -265,6 +266,7 @@ class _MyIdentity extends State<MyIdentity> {
                                     onChanged: (val){
                                       setState(() {
                                         dateTimechoisie = val as DateTime;
+                                        dateNaissance = dateTimechoisie.toString().substring(0, 10);
                                       });
                                     },
                                     decoration: InputDecoration(
@@ -375,7 +377,9 @@ class _MyIdentity extends State<MyIdentity> {
                                       if (_formKey.currentState.validate()) {
                                         Navigator.push(context,
                                             new MaterialPageRoute(builder: (BuildContext context) {
-                                              return widget.userType != 'Recruteur' ? Connexion(userType: widget.userType,) : MyCompany(userType: widget.userType,);
+                                              return widget.userType != 'Recruteur' ?
+                                              HomeConnexion(nom: nom, prenom: prenom, dateNaissance: dateNaissance, codePostal: codePostal, telephone: telephone, ville: ville, statut: statut, userType: widget.userType,) :
+                                              MyCompany(nom: nom, prenom: prenom, codePostal: codePostal, telephone: telephone, ville: ville, statut: statut, userType: widget.userType,);
                                             }));
                                       } else {
                                         print('Error');

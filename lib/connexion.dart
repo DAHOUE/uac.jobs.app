@@ -278,7 +278,7 @@ class _Connexion extends State<Connexion> {
     if (message == 'Login Matched') {
       // Navigate to Home.
       Navigator.push(context,
-          MaterialPageRoute(builder: (BuildContext context) => MyIdentity()));
+          MaterialPageRoute(builder: (BuildContext context) => HomeConnexion(nom: null, prenom: null, ville: null, codePostal: null, statut: null, telephone: null, dateNaissance: null, userType: null)));
     } else {
       // Showing Alert Dialog with Response JSON Message.
       showDialog(

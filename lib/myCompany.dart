@@ -5,12 +5,20 @@ import 'package:flutter/widgets.dart';
 import 'package:uac_mcf_project/HomeScreen.dart';
 import 'package:uac_mcf_project/connexion.dart';
 import 'package:uac_mcf_project/constante/TextWithStyle.dart';
+import 'package:uac_mcf_project/homeConnexion.dart';
 import 'package:uac_mcf_project/inscription.dart';
 
 
 class MyCompany extends StatefulWidget {
-  MyCompany({Key key, this.userType}) : super(key: key);
+  MyCompany({Key key, @required this.nom, @required this.prenom, @required this.ville, @required this.codePostal, @required this.statut, @required this.telephone, @required this.userType}) : super(key: key);
   final String userType;
+  String nom;
+  String prenom;
+  String ville;
+  String codePostal;
+  Statut selectedUser;
+  String statut;
+  String telephone;
 
   @override
   _MyCompany createState() => _MyCompany();
@@ -25,11 +33,15 @@ class _MyCompany extends State<MyCompany> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 
-  String nom;
-  String ville;
-  String codePostal;
+  String nomCompany;
+  String ifuCompany;
+  String registreCompany;
+  String raisonCompany;
+  String villeCompany;
+  String codePostalCompany;
   Statut selectedUser;
-  Statut statut;
+  String statut;
+  String date = "1998/12/15";
   int _nombre_de_jours;
 
 
@@ -39,7 +51,6 @@ class _MyCompany extends State<MyCompany> {
   void initState() {
 
 
-    ville = '';
   }
 
   @override
@@ -104,13 +115,13 @@ class _MyCompany extends State<MyCompany> {
                                 // ignore: missing_return
                                 validator: (val) {
                                   if (val.isEmpty) {
-                                    "Entrez votre entreprise";
+                                    return "Entrez IFU de votre entreprise";
                                   } else
                                     return null;
                                 },
                                 onChanged: (val) {
                                   setState(() {
-                                    nom = val;
+                                    ifuCompany = val;
                                   });
                                 },
                               ),
@@ -138,13 +149,13 @@ class _MyCompany extends State<MyCompany> {
                                 // ignore: missing_return
                                 validator: (val) {
                                   if (val.isEmpty) {
-                                    "Entrez votre entreprise";
+                                    return "Entrez votre entreprise";
                                   } else
                                     return null;
                                 },
                                 onChanged: (val) {
                                   setState(() {
-                                    nom = val;
+                                    nomCompany = val;
                                   });
                                 },
                               ),
@@ -171,13 +182,13 @@ class _MyCompany extends State<MyCompany> {
                                 // ignore: missing_return
                                 validator: (val) {
                                   if (val.isEmpty) {
-                                    "Entrez votre ville";
+                                    return "Entrez votre ville";
                                   } else
                                     return null;
                                 },
                                 onChanged: (val) {
                                   setState(() {
-                                    ville = val;
+                                    villeCompany = val;
                                   });
                                 },
                               ),
@@ -213,7 +224,7 @@ class _MyCompany extends State<MyCompany> {
                                 // ignore: missing_return
                                 validator: (valeur) {
                                   if (valeur.isEmpty) {
-                                    print('Entrez votre numéro de téléphone');
+                                    return 'Entrez contact entreprise' ;
                                   } else if (valeur.length < 8) {
                                     return 'Saisir un numéo valide';
                                   } else
@@ -281,13 +292,13 @@ class _MyCompany extends State<MyCompany> {
                                 // ignore: missing_return
                                 validator: (val) {
                                   if (val.isEmpty) {
-                                    "Entrez votre entreprise";
+                                    return "Entrez registre";
                                   } else
                                     return null;
                                 },
                                 onChanged: (val) {
                                   setState(() {
-                                    nom = val;
+                                    registreCompany = val;
                                   });
                                 },
                               ),
@@ -315,13 +326,13 @@ class _MyCompany extends State<MyCompany> {
                                 // ignore: missing_return
                                 validator: (val) {
                                   if (val.isEmpty) {
-                                    "Entrez votre entreprise";
+                                    return "Entrez raison sociale";
                                   } else
                                     return null;
                                 },
                                 onChanged: (val) {
                                   setState(() {
-                                    nom = val;
+                                    raisonCompany = val;
                                   });
                                 },
                               ),
@@ -343,7 +354,7 @@ class _MyCompany extends State<MyCompany> {
                                       if (_formKey.currentState.validate()) {
                                         Navigator.push(context,
                                             new MaterialPageRoute(builder: (BuildContext context) {
-                                              return Connexion(userType: widget.userType,);
+                                              return HomeConnexion(nom: widget.nom, prenom: widget.prenom, codePostal: widget.codePostal,dateNaissance: date, telephone: widget.telephone, ville: widget.ville, statut: widget.statut, userType: widget.userType,);
                                             }));
                                       } else {
                                         print('Error');

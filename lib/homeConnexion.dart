@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multilevel_drawer/multilevel_drawer.dart';
+import 'package:uac_mcf_project/myIdentity.dart';
 import 'package:uac_mcf_project/opportunity.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'Models/Destination.dart';
@@ -10,7 +11,15 @@ import 'homePage.dart';
 
 
 class HomeConnexion extends StatefulWidget {
-  HomeConnexion({Key key}) : super(key: key);
+  HomeConnexion({Key key, @required this.nom, @required this.prenom, @required this.ville, @required this.codePostal, @required this.statut, @required this.telephone, @required this.dateNaissance, @required this.userType}) : super(key: key);
+  String nom;
+  String prenom;
+  String ville;
+  String codePostal;
+  String statut;
+  String telephone;
+  String dateNaissance;
+  String userType;
 
   @override
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
@@ -22,33 +31,32 @@ class _MyStatefulWidgetState extends State<HomeConnexion> with SingleTickerProvi
   AnimationController _animationController;
 
   List<Activite> mesActivites = [
-    new Activite("Bourse d'étude au Canada", Icons.directions_bike),
-    new Activite("Bourse d'étude au Maroc", Icons.palette),
-    new Activite("Bourse d'étude au Rwanda", Icons.golf_course),
-    new Activite("Bourse d'étude au Burkina", Icons.gamepad),
-    new Activite("Bourse d'étude à Belgique", Icons.build),
-    new Activite("Bourse d'étude au Soudan", Icons.directions_bike),
-    new Activite("Bourse d'étude au Japon", Icons.palette),
-    new Activite("Bourse d'étude à Ouagadougou", Icons.golf_course),
-    new Activite("Bourse d'étude au Canada", Icons.gamepad),
-    new Activite("Bourse d'étude au Canada", Icons.build),
-    new Activite("Bourse d'étude au Canada", Icons.directions_bike),
-    new Activite("Bourse d'étude au Canada", Icons.palette),
-    new Activite("Bourse d'étude au Canada", Icons.golf_course),
-    new Activite("Bourse d'étude au Canada", Icons.gamepad),
-    new Activite("Bourse d'étude au Canada", Icons.build),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.directions_bike),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.palette),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.golf_course),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.gamepad),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.build),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.directions_bike),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.palette),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.golf_course),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.gamepad),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.build),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.directions_bike),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.palette),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.golf_course),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.gamepad),
+    new Activite("Candidature à l’Initiative d’Ashinaga pour l’Afrique", Icons.build),
   ];
 
   List<Entity> mesEntities = [
-    new Entity("IFRI", "assets/ifrilogo.jpg", "http://www.ifri-uac.bj/"),
-    new Entity("EPAC", "assets/XLarge-EPAC-UAC.jpg", "https://epac.uac.bj/"),
-    new Entity("FAST", "assets/logoFAST.jpg", "https://www.oreilleducampus.org/"),
-    new Entity("UAC", "assets/téléchargé.jpg", "https://cours.uac.bj/u/UyhNIEfzgPy1ZMJnzBsB/"),
-    new Entity("IFRI", "assets/ifrilogo.jpg", "http://www.ifri-uac.bj/"),
-    new Entity("IFRI", "assets/ifrilogo.jpg", "http://www.ifri-uac.bj/"),
-    new Entity("IFRI", "assets/ifrilogo.jpg", "http://www.ifri-uac.bj/"),
-    new Entity("IFRI", "assets/ifrilogo.jpg", "http://www.ifri-uac.bj/"),
-    new Entity("IFRI", "assets/ifrilogo.jpg", "http://www.ifri-uac.bj/"),
+    new Entity("Mes préferences email", Icons.directions_bike, "http://www.ifri-uac.bj/"),
+    new Entity("Mes offres", Icons.palette, "https://epac.uac.bj/"),
+    new Entity("Recherche", Icons.search, "https://www.oreilleducampus.org/"),
+    new Entity("Modifier mot de passe", Icons.golf_course, "https://cours.uac.bj/u/UyhNIEfzgPy1ZMJnzBsB/"),
+    new Entity("Supprimer mon compte", Icons.gamepad, "http://www.ifri-uac.bj/"),
+    new Entity("Mon identité", Icons.build, "http://www.ifri-uac.bj/"),
+
+
   ];
   int _index = 0;
   int _selectedIndex = 0;
@@ -76,16 +84,15 @@ class _MyStatefulWidgetState extends State<HomeConnexion> with SingleTickerProvi
                       child: new Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          new TextWithStyle(entityChosen.nom, fontWeight: FontWeight.bold,),
+                         // new TextWithStyle(entityChosen.nom, fontWeight: FontWeight.bold,),
                           new  Expanded(
-                            child: new Image.asset(entityChosen.pathImage, fit: BoxFit.fill,),
+                            child: new Icon(mesEntities[i].icone, color: Colors.black, size: 65.0,),
                           ),
-                          RaisedButton(
-                            color: Colors.green,
+                          FlatButton(
                             onPressed: () {
                               launch_url();
                             },
-                            child: TextWithStyle('Aller sur le site', color: Colors.white, fontWeight: FontWeight.bold,),
+                            child: TextWithStyle(mesEntities[i].nom, color: Colors.green, fontWeight: FontWeight.bold, fontSize: 20.0,),
                           ),
                         ],
                       ),
@@ -117,7 +124,12 @@ class _MyStatefulWidgetState extends State<HomeConnexion> with SingleTickerProvi
 
                             children: <Widget>[
 
-                              new Text('Opportunité ${i+1} ', style: TextStyle(fontWeight: FontWeight.bold),),
+                              Row(
+                                children: [
+                                  new Text("Date limite:", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),),
+                                  new Text("19 février 2021",),
+                                ],
+                              ),
                               //new Text(new DateConvertisseur().convertirDate(item.pubDate.toString()), style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),),
                             ],
                           ),
@@ -129,7 +141,7 @@ class _MyStatefulWidgetState extends State<HomeConnexion> with SingleTickerProvi
                                 child: new Container(
                                   height: MediaQuery.of(context).size.width / 2.5,
                                   width: MediaQuery.of(context).size.width / 2.5,
-                                  child: new Image.asset("assets/mcflogo.png", fit: BoxFit.fill),
+                                  child: new Image.asset("assets/Website-Banner-FR-1200x400.png", fit: BoxFit.fill),
                                 ),
                               ),
                               new Container(
@@ -181,28 +193,37 @@ class _MyStatefulWidgetState extends State<HomeConnexion> with SingleTickerProvi
                   ),
                 ),
                 SizedBox(height: 15.0,),
-                new TextWithStyle('Nom : ', fontWeight: FontWeight.bold,),
+                new TextWithStyle('Nom : ${widget.nom}', fontWeight: FontWeight.bold,),
                 SizedBox(height: 5.0,),
                 Divider(),
                 SizedBox(height: 5.0,),
-                new TextWithStyle('Prenom : ', fontWeight: FontWeight.bold,),
+                new TextWithStyle('Prenom : ${widget.prenom}', fontWeight: FontWeight.bold,),
                 SizedBox(height: 5.0,),
                 Divider(),
                 SizedBox(height: 5.0,),
-                new TextWithStyle('Date de naissance : ', fontWeight: FontWeight.bold,),
+                new TextWithStyle('Date de naissance : ${widget.dateNaissance}', fontWeight: FontWeight.bold,),
                 SizedBox(height: 5.0,),
                 Divider(),
                 SizedBox(height: 5.0,),
-                new TextWithStyle('Ville  : ', fontWeight: FontWeight.bold,),
+                new TextWithStyle('Ville  : ${widget.ville}', fontWeight: FontWeight.bold,),
                 SizedBox(height: 15.0,),
                 Divider(),
                 SizedBox(height: 5.0,),
-                new TextWithStyle('Téléphone : ', fontWeight: FontWeight.bold,),
+                new TextWithStyle('Téléphone : ${widget.telephone}', fontWeight: FontWeight.bold,),
                 SizedBox(height: 5.0,),
                 Divider(),
                 SizedBox(height: 15.0,),
-                new TextWithStyle('Code postal : ', fontWeight: FontWeight.bold,),
+                new TextWithStyle('Code postal : ${widget.codePostal}', fontWeight: FontWeight.bold,),
+                RaisedButton(
+                  color: Colors.green,
+                  onPressed: (){
+                    Navigator.push(context, new MaterialPageRoute(builder: (BuildContext context){
+                      return new MyIdentity(userType: widget.userType,);}));
+                  },
+                  child: TextWithStyle('Inscription', color: Colors.white, fontWeight: FontWeight.bold,),
+                ),
               ],
+
             ),
 
         ),
@@ -364,12 +385,12 @@ class _MyStatefulWidgetState extends State<HomeConnexion> with SingleTickerProvi
 
 class Entity {
   String nom;
-  String pathImage;
+  IconData icone;
   String urlSite;
 
-  Entity(String nom, String pathImage, String urlSite) {
+  Entity(String nom, IconData icone, String urlSite) {
     this.nom = nom;
-    this.pathImage = pathImage;
+    this.icone = icone;
     this.urlSite;
   }
 }
